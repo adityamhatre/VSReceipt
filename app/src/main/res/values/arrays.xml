@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="packages">
+        <item>Select package</item>
+        <item>One Day picnic</item>
+        <item>Half day picnic</item>
+        <item>Evening 5pm to next day 5pm</item>
+        <item>Morning 10am to next day 5pm</item>
+        <item>Morning 9.30am to next day 9am</item>
+    </string-array>
+</resources>
