@@ -24,7 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    val items = listOf("ac", "non_ac", "bun_3", "bun_5", "ac_dorm", "non_ac_dorm", "deluxe", "nivant", "adult", "child", "other1", "bhujing", "lollipop", "starter", "makingcost", "other2")
+    val items = listOf("ac", "non_ac", "bun_3", "bun_5", "ac_dorm", "non_ac_dorm", "deluxe", "nivant", "room_6", "room_7", "adult", "child", "other1", "bhujing", "lollipop", "starter", "makingcost", "other2")
 
     val itemRates = ArrayList<Int>(items.map { i -> 0 })
     val itemCounts = ArrayList<Int>(items.map { i -> 0 })
@@ -64,11 +64,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (itemTotals[8] + itemTotals[9] + itemTotals[10] == 0) {
+        if (itemTotals[10] + itemTotals[11] + itemTotals[12] == 0) {
             findViewById<View>(R.id.food_title).visibility = View.GONE
         }
 
-        if (itemTotals[11] + itemTotals[12] + itemTotals[13] + itemTotals[14] + itemTotals[15] == 0) {
+        if (itemTotals[13] + itemTotals[14] + itemTotals[15] + itemTotals[16] + itemTotals[17] == 0) {
             findViewById<View>(R.id.other_expenses_title).visibility = View.GONE
         }
     }
@@ -93,6 +93,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViews() {
         findViewById<EditText>(R.id.advance1).doAfterTextChanged {
+            findViewById<EditText>(R.id.total_amount).setText((itemTotals.reduce { acc, i -> acc + i } - getDiscount()).toString())
+        }
+        findViewById<EditText>(R.id.discount).doAfterTextChanged {
             findViewById<EditText>(R.id.total_amount).setText((itemTotals.reduce { acc, i -> acc + i } - getDiscount()).toString())
         }
         findViewById<TextView>(R.id.receiptNumber).text = "Receipt no:\n ${receipt}"
@@ -123,8 +126,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDiscount(): Int {
         val advanceString = findViewById<EditText>(R.id.advance1).text.toString()
-        if (advanceString.isBlank()) return 0
-        return advanceString.toInt()
+        val discountString = findViewById<EditText>(R.id.discount).text.toString()
+        val a: Int = if (advanceString.isBlank()) 0 else advanceString.toInt()
+        val d: Int = if (discountString.isBlank()) 0 else discountString.toInt()
+
+        return a + d
     }
 
     private fun setTotals(i: Int, item: String) {
